@@ -1,5 +1,26 @@
 import hashlib
 
+import requests
+
+
+def fetch(url):
+    """
+    Retrieve data from a URL.
+
+    :rtype: bytes
+
+    :param url: The URL to get data from.
+    :type url: str
+
+    :return: Data (as bytes) retrieved from the URL.
+    """
+    response = requests.get(url, timeout=10)
+
+    if response.ok:
+        return response.content
+
+    response.raise_for_status()
+
 
 def valid(content, checksum):
     """
