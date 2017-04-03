@@ -1,4 +1,5 @@
 import hashlib
+import os.path
 
 import requests
 
@@ -34,6 +35,27 @@ def fetch(url):
         return response.content
 
     response.raise_for_status()
+
+
+def has_cached_copy(pathname, checksum):
+    """
+    Verify cached content with a checksum.
+
+    :rtype: bool
+
+    :param pathname: Location of cached content on the filesystem.
+    :type pathname: str
+
+    :param checksum: Expected hexadecimal string digest of cached content.
+    :type checksum: str
+
+    :return: True if the checksum of the cached content matches the provided checksum
+    """
+    if not os.path.exists(pathname):
+        return False
+
+    with open(pathname, "rb") as cache_file:
+        return valid(cache_file.read(), checksum)
 
 
 def valid(content, checksum):

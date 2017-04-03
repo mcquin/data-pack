@@ -77,3 +77,39 @@ def test_cache_exists(tmpdir):
 
     with open(pathname, "rb") as cached:
         assert cached.read() == content
+
+
+def test_has_cached_copy_none(tmpdir):
+    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+
+    content = str.encode("some,cached,data")
+
+    checksum = hashlib.md5(content).hexdigest()
+
+    assert not datapack.fetch.has_cached_copy(pathname, checksum)
+
+
+def test_has_cached_copy_match(tmpdir):
+    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+
+    content = str.encode("some,cached,data")
+
+    checksum = hashlib.md5(content).hexdigest()
+
+    with open(pathname, "wb") as cached:
+        cached.write(content)
+
+    assert datapack.fetch.has_cached_copy(pathname, checksum)
+
+
+def test_has_cached_copy_mismatch(tmpdir):
+    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+
+    content = str.encode("some,cached,data")
+
+    checksum = hashlib.md5(content).hexdigest()
+
+    with open(pathname, "wb") as cached:
+        cached.write(str.encode("some,different,data"))
+
+    assert not datapack.fetch.has_cached_copy(pathname, checksum)
