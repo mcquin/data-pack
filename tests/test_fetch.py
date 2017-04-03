@@ -55,7 +55,7 @@ def test_fetch_timeout():
 
 
 def test_cache(tmpdir):
-    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+    pathname = str(tmpdir.mkdir("cachedir").join("data.txt"))
 
     content = str.encode("some,new,data")
 
@@ -66,7 +66,7 @@ def test_cache(tmpdir):
 
 
 def test_cache_exists(tmpdir):
-    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+    pathname = str(tmpdir.mkdir("cachedir").join("data.txt"))
 
     content = str.encode("some,new,data")
 
@@ -80,7 +80,7 @@ def test_cache_exists(tmpdir):
 
 
 def test_has_cached_copy_none(tmpdir):
-    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+    pathname = str(tmpdir.mkdir("cachedir").join("data.txt"))
 
     content = str.encode("some,cached,data")
 
@@ -90,7 +90,7 @@ def test_has_cached_copy_none(tmpdir):
 
 
 def test_has_cached_copy_match(tmpdir):
-    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+    pathname = str(tmpdir.mkdir("cachedir").join("data.txt"))
 
     content = str.encode("some,cached,data")
 
@@ -103,7 +103,7 @@ def test_has_cached_copy_match(tmpdir):
 
 
 def test_has_cached_copy_mismatch(tmpdir):
-    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+    pathname = str(tmpdir.mkdir("cachedir").join("data.txt"))
 
     content = str.encode("some,cached,data")
 
