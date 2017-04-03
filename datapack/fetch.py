@@ -3,6 +3,20 @@ import hashlib
 import requests
 
 
+def cache(pathname, content):
+    """
+    Save content to a file.
+
+    :param pathname: Cache content at this location. Pre-existing content is overwritten.
+    :type pathname: str
+
+    :param content: Data to cache.
+    :type content: bytes
+    """
+    with open(pathname, "wb") as cache_file:
+        cache_file.write(content)
+
+
 def fetch(url):
     """
     Retrieve data from a URL.

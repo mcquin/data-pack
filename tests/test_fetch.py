@@ -1,9 +1,10 @@
 import hashlib
 
-import datapack.fetch
 import pytest
 import requests.exceptions
 import requests_mock
+
+import datapack.fetch
 
 
 def test_valid_true():
@@ -51,3 +52,28 @@ def test_fetch_timeout():
 
         with pytest.raises(requests.exceptions.Timeout):
             datapack.fetch.fetch(url)
+
+
+def test_cache(tmpdir):
+    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+
+    content = str.encode("some,new,data")
+
+    datapack.fetch.cache(pathname, content)
+
+    with open(pathname, "rb") as cached:
+        assert cached.read() == content
+
+
+def test_cache_exists(tmpdir):
+    pathname = tmpdir.mkdir("cachedir").join("data.txt")
+
+    content = str.encode("some,new,data")
+
+    with open(pathname, "wb") as cached:
+        cached.write(str.encode("some,old,data"))
+
+    datapack.fetch.cache(pathname, content)
+
+    with open(pathname, "rb") as cached:
+        assert cached.read() == content
