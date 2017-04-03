@@ -1,0 +1,19 @@
+sudo: false
+
+language: python
+
+python:
+  - "2.7"
+  - "3.5"
+  - "nightly"
+
+cache:
+  # See http://docs.travis-ci.com/user/caching/#pip-cache
+  directories:
+    - $HOME/.cache/pip
+
+before_install: pip install --upgrade pip wheel
+
+install: pip install -e .
+
+script: python setup.py test
