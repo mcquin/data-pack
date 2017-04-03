@@ -2,3 +2,7 @@ MANIFEST
 *~
 \#*
 dist
+.eggs
+*.egg-info/
+.idea
+build
