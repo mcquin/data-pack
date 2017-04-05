@@ -7,6 +7,10 @@ python:
   - "3.5"
   - "nightly"
 
+matrix:
+  allow_failures:
+    - python: "nightly"
+
 cache:
   # See http://docs.travis-ci.com/user/caching/#pip-cache
   directories:
